@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Chatアプリ・テスト</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <!-- ここからブラウザに表示する内容 -->
+  <div class="field_upper">
+    <div class="header">
+      <h1 id="header_title">Simplest Chat</h1>
+    </div>
+    <!-- 名前 -->
+    <div class="form_name">
+      <div id="name">
+        <p>名前</p>
+      </div>
+      <div id="name_form">
+        <input type="text" id="username">
+      </div>
+    </div>
+
+    <!-- アイコン用画像 -->
+    <div class="list_icons">
+      <img class="icon" data-img="0" src="./img/buke.png" alt="" width="50px">
+      <img class="icon" data-img="1" src="./img/tuku.jpg" alt="" width="50px">
+      <img class="icon" data-img="2" src="./img/caram.png" alt="" width="50px">
+    </div>
+
+    <!-- テキストエリア -->
+    <div class="form_text">
+      <ul class="ul_textarea">
+      <li class="div_textarea">
+        <textarea id="text" placeholder="メッセージを入力"></textarea>
+      </li>
+      <li class="div_button">
+        <button id="send">送信</button>
+      </li>
+    </div>
+  </div>
+
+  <div class="field_lower">
+    <!-- 保存データを表示 -->
+    <div id="output"></div>
+  </div>
+
+  <!--/ ブラウザの画面に見える内容 -->
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!--** 以下Firebase **-->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <!-- ここにfirebaseのscriptを貼り付ける -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      authDomain: "dev18-chat-8fd12.firebaseapp.com",
+      databaseURL: "https://dev18-chat-8fd12.firebaseio.com",
+      projectId: "dev18-chat-8fd12",
+      storageBucket: "dev18-chat-8fd12.appspot.com",
+      messagingSenderId: "1060488773705",
+      appId: "1:1060488773705:web:c74fc166ce920d0e167f98"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    //firebaseのデーターベース（保存させる場所）を使いますよと言うjsのコードを貼り付ける
+    const newPostRef = firebase.database().ref();
+
+    // アイコン画像
+    let d = 0;
+    const img = ["buke.png", "tuku.jpg", "caram.png"];
+
+    $(".icon").on("click", function(){
+      console.log(this); //クリックした画像のhtmlが投稿される
+      d = $(this).attr("data-img") // data-img {0,1,2} のみ取得
+    })
+
+    // 送信ボタンがクリックされたら
+    $("#send").on("click", function () {
+
+      // データを登録、サーバーに送る
+      newPostRef.push({
+        //名前
+        username:$("#username").val(),
+        //テキストエリア
+        text: $("#text").val(),
+        icon: d
+      })
+      // フォームの文字を空にする
+      $("#username").val(""); //空にする
+      $("#text").val(""); //空にする
+    });
+
+    // 受信処理
+    newPostRef.on("child_added", function (data) {
+      //ここに保存されたデータが全て入ってくる
+      // function (data)のdataにfirebaseのデータが入ってくる
+      let k = data.key;
+      let v = data.val();
+
+      //テンプレートリテラル `` を活用して変数にhtmlを埋め込む 
+      let str = `<div class='message'>
+                  <div class="message_left">
+                    <img class='img_icon' src='img/${img[v.icon]}'>
+                  </div>
+                  <div class="message_right">
+                    <p class="message_username">${v.username}</p>
+                    <p class="message_text">${v.text}</p>
+                  </div>`;
+
+      // ここでデータをhtmlに埋め込む prependには変数を埋め込む
+      $("#output").append(str);
+      //$("#output").prepend(str);
+    });
+
+    // テキストボックスでEnter押下すると送信できる
+    // Shift押下で改行は入れられない？？
+    $("#text").on("keydown", function (e) {
+      console.log(e, ee);
+      if (e.keyCode == 13) { // Enterが押された
+        if (e.shiftKey) { // Shiftキーも押された
+          console.log(111);
+        } else {
+          newPostRef.push({
+            username: $("#username").val(), //名前
+            text: $("#text").val(), //テキストエリア
+          })
+          $("#text").val(""); //空にする
+          $("#username").val(""); //空にする
+        }
+      } else {
+      }
+    });
+  </script>
+</body>
+
+</html>

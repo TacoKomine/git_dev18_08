@@ -1,0 +1,147 @@
+body{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.header{
+    color: #ffffff;
+    background-color: #1abc9c;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 60px;
+}
+
+#header_title{
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: auto;
+    font-size: 40px;
+}
+
+.field_upper{
+    background-color: #bdc3c7;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.form_name{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#name{
+    width: 60px;
+    font-size: 20px;
+    color: #ffffff;
+    margin-left: 10px;
+}
+
+#name_form{
+    width: 90%;
+}
+
+#username{
+    height: 20px;
+    width: 400px;
+    border-top: none;
+    border-right: none;
+    border-left-color: none;
+    border-bottom-color: #1abc9c;
+    border-bottom-width: 5px;
+}
+
+.list_icons{
+    display:"flex";
+    width:50%;
+    margin-top: 5px;
+    margin-left: 10%;
+}
+
+.icon{
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 2px;
+}
+
+.form-text{
+    align-items: center;
+    padding-right: 10%;
+    padding-left: 10%;
+}
+
+ul{
+    list-style: none;  
+}
+
+.ul_textarea{
+    display: flex;
+    align-items: center;
+    width: 90%;
+}
+
+.div_textarea{
+    width:90%;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#div_button{
+    width: 10%;
+    margin-left: 0px;
+}
+
+#text{
+    resize: none;
+    height:50px;
+    width: 95%;
+    border-top: none;
+    border-right: none;
+    border-left-color: none;
+    border-bottom-color: #1abc9c;
+    border-bottom-width: 5px;
+}
+
+#send{
+    height:50px;
+    width: 100%;
+    border-color:#ffff;
+    border-style: solid;
+    border-width: 2px;
+    background-color:  #1abc9c;
+    color: #ffff;
+}
+
+#output{
+    padding-left: 10%;
+}
+
+.message{
+    display: flex;
+    width: 80%;
+    border-bottom: 1px solid #95a5a6;
+    margin-bottom: 5px;
+}
+
+.message_left{
+    width: 20%;
+}
+
+.message_left img{
+    width: 100%;
+}
+
+.message_right{
+    width: 70%;
+    margin-left: 10px;
+}
+
+.message_username{
+    font-size: 12px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.message_text{
+    font-size: 20px;
+}
